@@ -1,0 +1,60 @@
+<html lang="es">
+
+<head>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Dedaluz's CEX price watch</title>
+</head>
+
+
+<body>
+    <h1 class="text-4xl text-center py-2">Dedaluz's CEX Price Tracker</h1>
+    <div x-data="{
+        products: [],
+        retrieveData() {
+            fetch('db.json')
+                .then(response => response.json())
+                .then(data => {
+                    this.products = Object.values(data).sort((a, b) => a.name.localeCompare(b.name))
+                })
+        }
+     }" x-init="retrieveData()">
+        <div class="flex flex-wrap my-2 gap-1 justify-center">
+            <template x-for="product in products">
+                <div class=" border border-gray-300 rounded rounded-md m-2 shadow-md w-64">
+                    <img x-bind:src="product.image" class="w-64 h-auto rounded-t-md" />
+                    <p class="break-normal p-1 text-sm text-gray-600 font-semibold" x-text="product.name"></p>
+
+                    <template x-for="price in product.prices.reverse()">
+                        <div class="px-2 py-1">
+                            <p class="font-semibold text-gray-600 text-xs" x-text="price.date"></p>
+                            <div class="flex">
+
+
+                                <div class="flex pl-2 w-1/3">
+                                    <img src="icons/buy.svg" class="h-6 w-6" />
+                                    <span x-text="price.sell" class="pl-1 text-sm my-auto"></span><span
+                                        class="text-sm my-auto">€</span>
+                                </div>
+
+                                <div class="flex pl-2 w-1/3">
+                                    <img src="icons/exchange.svg" class="h-6 w-6" />
+                                    <span x-text="price.exchange" class="pl-1 text-sm my-auto"></span><span
+                                        class="text-sm my-auto">€</span>
+                                </div>
+
+                                <div class="flex pl-2 w-1/3">
+                                    <img src="icons/sell.svg" class="h-6 w-6" />
+                                    <span x-text="price.cash" class="pl-1 text-sm my-auto"></span><span
+                                        class="text-sm my-auto">€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </div>
+</body>
+
+</html>
