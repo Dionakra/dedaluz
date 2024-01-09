@@ -21,8 +21,8 @@
      }" x-init="retrieveData()">
         <div class="flex flex-wrap my-2 gap-1 justify-center">
             <template x-for="product in products">
-                <div class=" border border-gray-300 rounded rounded-md m-2 shadow-md w-64">
-                    <img x-bind:src="product.image" class="w-64 h-auto rounded-t-md" />
+                <div class=" border border-gray-300 rounded rounded-md m-2 shadow-md w-1/2 sm:w-1/3 lg:w-1/4">
+                    <img x-bind:src="product.image" class="w-full h-auto rounded-t-md" />
                     <p class="break-normal p-1 text-sm text-gray-600 font-semibold" x-text="product.name"></p>
 
                     <template x-for="price in product.prices.reverse()">
